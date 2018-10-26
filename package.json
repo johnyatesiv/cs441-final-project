@@ -1,0 +1,19 @@
+{
+  "name": "cs441_final_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha test/acceptance"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnyatesiv/cs441_final_project.git"
+  },
+  "author": "John Yates",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnyatesiv/cs441_final_project/issues"
+  },
+  "homepage": "https://github.com/johnyatesiv/cs441_final_project#readme"
+}
