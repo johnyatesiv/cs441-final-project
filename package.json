@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/johnyatesiv/cs441_final_project/issues"
   },
-  "homepage": "https://github.com/johnyatesiv/cs441_final_project#readme"
+  "homepage": "https://github.com/johnyatesiv/cs441_final_project#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mocha": "^5.2.0",
+    "react": "^16.6.0",
+    "sequelize": "^4.41.0"
+  }
 }
