@@ -1,0 +1,68 @@
+/** Dependencies **/
+const bodyParser = require("body-parser");
+const express = require("express");
+const UsersController = require("./lib/controllers/UsersController");
+
+/** Initialize App as Express obj **/
+const app = express();
+
+/** Serves views from /public directory **/
+app.use(express.static('public'));
+/** Middleware for parsing JSON sent in req bodies **/
+app.use(bodyParser.json());
+
+/** Landing page **/
+app.get('/', (req, res) => {
+    res.render("index.html");
+});
+
+
+app.get("/user", (req, res) => {
+   UsersController.find().then(users => {
+       res.json(users[0].dataValues);
+   }).catch(err => {
+        res.json({error: true, message: err});
+    })
+});
+
+/** Generic REST wrappers **/
+/**
+ * __get
+ * @param route
+ * @param req
+ * @param res
+ * @private
+ */
+__get = (route, req, res) => {
+
+};
+
+/**
+ * __post
+ * @param route
+ * @param req
+ * @param res
+ * @private
+ */
+__post = (route, req, res) => {
+
+};
+
+/**
+ * __put
+ * @param route
+ * @param req
+ * @param res
+ * @private
+ */
+__put = (route, req, res) => {
+
+};
+
+
+__delete = (route, req, res) => {
+
+};
+
+/** Starts the app, listening on 3000 by default or on the configured environment port **/
+app.listen(process.env.PORT || 3000, () => console.log('FoodApp up and running!'));
