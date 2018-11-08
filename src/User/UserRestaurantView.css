@@ -1,8 +1,9 @@
 .RestaurantCard {
-    margin: 1%;
+    margin: 1vw;
     height: 50vh;
     width: 50vh;
     text-align: center;
+    cursor: pointer;
 }
 
 .RestaurantCardContent {
@@ -14,4 +15,14 @@
     text-align: center;
     height: 30vh;
     width: 30vw;
+}
+
+.UserRestaurantPopover {
+    height: 100vh;
+    width: 100vw;
+    float: right;
+}
+
+.UserRestaurantViewGrid {
+    padding: 10vw;
 }

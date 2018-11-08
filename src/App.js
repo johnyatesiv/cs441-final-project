@@ -7,24 +7,73 @@ import Grid from '@material-ui/core/Grid';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
-import { Fastfood, Restaurant, ExitToApp, MoreVert } from '@material-ui/icons';
+import { Fastfood, Restaurant, ExitToApp, MoreVert, Close } from '@material-ui/icons';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
+      menuOpen: false,
+      restaurantViewOpen: false,
+      orderViewOpen: false
+    };
+  }
+
+  /**
+   *
+   */
+  openMenu() {
+    this.setState({
+      menuOpen: true
+    });
+  }
+
+  /**
+   *
+   */
+  closeMenu() {
+    this.setState({
       menuOpen: false
-    };
+    })
+  }
 
-    //this.handleMenuOpen.bind(this);
-    this.handleMenuOpen = () => {
-      this.setState({
-        menuOpen: !this.state.menuOpen
-      });
+  mutateState(key, value) {
+    let update = {};
+    update[key] = value;
+    this.setState(update);
+  }
 
-      alert("AppComp "+ this.state.menuOpen);
-    };
+  openRestaurantView() {
+    this.closeOrderView();
+
+    this.setState({
+      restaurantViewOpen: true
+    });
+  }
+
+  closeRestaurantView() {
+    this.setState({
+      restaurantViewOpen: false
+    });
+  }
+
+  openOrderView() {
+    this.closeRestaurantView();
+
+    this.setState({
+      orderViewOpen: true
+    });
+  }
+
+  closeOrderView() {
+    this.setState({
+      orderViewOpen: false
+    });
+  }
+
+  noViewsOpen() {
+    return !this.state.restaurantViewOpen && !this.state.orderViewOpen;
   }
 
   render() {
@@ -32,14 +81,29 @@ class App extends Component {
       <div className="App">
           <Grid container className="AppGrid">
             <IconButton
-                onClick={this.handleMenuOpen}
+                onClick={this.openMenu.bind(this)}
                 styles={{marginBottom: "5%"}}
             >
               <MoreVert />
             </IconButton>
-            <MainMenu open={this.state.menuOpen} />
-            <UserView/>
-            <OrderView/>
+            <br />
+            <MainMenu
+                open={this.state.menuOpen}
+                close={this.closeMenu.bind(this)}
+                openRestaurantView={this.openRestaurantView.bind(this)}
+                openOrderView={this.openOrderView.bind(this)}
+            />
+            <br />
+            {
+              this.noViewsOpen() ?
+                <img style={{width: "75vw", height: "75vh"}} src="/foodapp_logo.png" />
+                : ""
+            }
+            <UserView
+                mutateParentState={this.mutateState.bind(this)}
+                restaurantViewOpen={this.state.restaurantViewOpen}
+                orderViewOpen={this.state.restaurantViewOpen}
+            />
           </Grid>
       </div>
     );
@@ -48,29 +112,30 @@ class App extends Component {
 
 class MainMenu extends React.Component {
   constructor(props) {
-    super();
+    super(props);
+
     this.state = {
       open: props.open
     };
-
-    this.props = props;
   }
 
   render() {
-    alert("MenuComp "+ this.props.open);
     return (
         <Menu open={this.props.open}>
-          <MenuItem className="UserMenuItem">
+          <MenuItem className="UserMenuItem" onClick={this.props.openRestaurantView}>
             <Restaurant></Restaurant>
           </MenuItem>
-          <MenuItem className="UserMenuItem">
+          <MenuItem className="UserMenuItem" onClick={this.props.openOrderView}>
             <Fastfood></Fastfood>
           </MenuItem>
-          <MenuItem className="UserMenuItem">
+          <MenuItem className="UserMenuItem" onClick={this.props.logout}>
             <ExitToApp></ExitToApp>
           </MenuItem>
+          <MenuItem className="UserMenuItem" onClick={this.props.close}>
+            <Close></Close>
+          </MenuItem>
         </Menu>
-    )
+    );
   }
 }
 

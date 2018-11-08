@@ -8,7 +8,7 @@ class OrderView extends React.Component {
     }
 
     componentDidMount() {
-        fetch("/user").then(user => {
+        fetch("/orders").then(user => {
             if(!user.error) {
                 this.setState({
                     user: user
