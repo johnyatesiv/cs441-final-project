@@ -1,0 +1,17 @@
+.RestaurantCard {
+    margin: 1%;
+    height: 50vh;
+    width: 50vh;
+    text-align: center;
+}
+
+.RestaurantCardContent {
+    text-align: center;
+    background-color: rgba(231, 231, 231, 0.31);
+}
+
+.RestaurantCardMedia {
+    text-align: center;
+    height: 30vh;
+    width: 30vw;
+}
