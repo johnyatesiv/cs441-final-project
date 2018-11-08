@@ -32,6 +32,7 @@ class Menu extends React.Component {
             >
                 <Close className="CloseButton" onClick={this.props.close}></Close>
                 <br />
+                <h1>Menu</h1>
                 <div className="ActiveMenu">
                     <Grid
                         container

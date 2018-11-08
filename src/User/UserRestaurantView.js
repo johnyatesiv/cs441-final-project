@@ -1,14 +1,10 @@
 import React from 'react';
 import './UserRestaurantView.css';
-import Popover from '@material-ui/core/Popover';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-//import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-//import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
-import { Close } from '@material-ui/icons';
 
 /** Other Views **/
 import Menu from "../Menu/MenuView";

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
 import UserView from "./User/UserView";
-import OrderView from "./Order/OrderView";
 import Grid from '@material-ui/core/Grid';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -100,7 +99,7 @@ class App extends Component {
               this.noViewsOpen() ?
                 (
                   <div style={{width: "100vw", height: "100vh"}}>
-                    <img style={{width: "75vw", height: "75vh", marginLeft: "10vw"}} src="/foodapp_logo.png" />
+                    <img style={{width: "75vw", height: "75vh", marginLeft: "10vw"}} src="/foodapp_logo.png" alt="Foodapp Logo" />
                   </div>
                 )
                 : ""
