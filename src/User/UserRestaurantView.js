@@ -30,6 +30,66 @@ class UserRestaurantView extends React.Component {
                     name: "TEST 2",
                     description: "Your local taco shop!",
                     image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
+                },
+                {
+                    id: 1,
+                    name: "TEST 1",
+                    description: "A nice burger place.",
+                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
+                },
+                {
+                    id: 2,
+                    name: "TEST 2",
+                    description: "Your local taco shop!",
+                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
+                },
+                {
+                    id: 1,
+                    name: "TEST 1",
+                    description: "A nice burger place.",
+                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
+                },
+                {
+                    id: 2,
+                    name: "TEST 2",
+                    description: "Your local taco shop!",
+                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
+                },
+                {
+                    id: 1,
+                    name: "TEST 1",
+                    description: "A nice burger place.",
+                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
+                },
+                {
+                    id: 2,
+                    name: "TEST 2",
+                    description: "Your local taco shop!",
+                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
+                },
+                {
+                    id: 1,
+                    name: "TEST 1",
+                    description: "A nice burger place.",
+                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
+                },
+                {
+                    id: 2,
+                    name: "TEST 2",
+                    description: "Your local taco shop!",
+                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
+                },
+                {
+                    id: 1,
+                    name: "TEST 1",
+                    description: "A nice burger place.",
+                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
+                },
+                {
+                    id: 2,
+                    name: "TEST 2",
+                    description: "Your local taco shop!",
+                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
                 }
             ],
             displayMenu: false,

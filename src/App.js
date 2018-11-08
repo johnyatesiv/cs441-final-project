@@ -20,6 +20,12 @@ class App extends Component {
     };
   }
 
+  mutateState(key, value) {
+    let update = {};
+    update[key] = value;
+    this.setState(update);
+  }
+
   /**
    *
    */
@@ -38,14 +44,9 @@ class App extends Component {
     })
   }
 
-  mutateState(key, value) {
-    let update = {};
-    update[key] = value;
-    this.setState(update);
-  }
-
   openRestaurantView() {
     this.closeOrderView();
+    this.closeMenu();
 
     this.setState({
       restaurantViewOpen: true
@@ -60,6 +61,7 @@ class App extends Component {
 
   openOrderView() {
     this.closeRestaurantView();
+    this.closeMenu();
 
     this.setState({
       orderViewOpen: true
@@ -96,7 +98,11 @@ class App extends Component {
             <br />
             {
               this.noViewsOpen() ?
-                <img style={{width: "75vw", height: "75vh"}} src="/foodapp_logo.png" />
+                (
+                  <div style={{width: "100vw", height: "100vh"}}>
+                    <img style={{width: "75vw", height: "75vh", marginLeft: "10vw"}} src="/foodapp_logo.png" />
+                  </div>
+                )
                 : ""
             }
             <UserView
