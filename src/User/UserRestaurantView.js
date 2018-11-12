@@ -9,111 +9,49 @@ import CardActions from '@material-ui/core/CardActions';
 /** Other Views **/
 import Menu from "../Menu/MenuView";
 
+/** Globals **/
+
 class UserRestaurantView extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            restaurants: [
-                {
-                    id: 1,
-                    name: "TEST 1",
-                    description: "A nice burger place.",
-                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
-                },
-                {
-                    id: 2,
-                    name: "TEST 2",
-                    description: "Your local taco shop!",
-                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
-                },
-                {
-                    id: 1,
-                    name: "TEST 1",
-                    description: "A nice burger place.",
-                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
-                },
-                {
-                    id: 2,
-                    name: "TEST 2",
-                    description: "Your local taco shop!",
-                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
-                },
-                {
-                    id: 1,
-                    name: "TEST 1",
-                    description: "A nice burger place.",
-                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
-                },
-                {
-                    id: 2,
-                    name: "TEST 2",
-                    description: "Your local taco shop!",
-                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
-                },
-                {
-                    id: 1,
-                    name: "TEST 1",
-                    description: "A nice burger place.",
-                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
-                },
-                {
-                    id: 2,
-                    name: "TEST 2",
-                    description: "Your local taco shop!",
-                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
-                },
-                {
-                    id: 1,
-                    name: "TEST 1",
-                    description: "A nice burger place.",
-                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
-                },
-                {
-                    id: 2,
-                    name: "TEST 2",
-                    description: "Your local taco shop!",
-                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
-                },
-                {
-                    id: 1,
-                    name: "TEST 1",
-                    description: "A nice burger place.",
-                    image: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&h=350"
-                },
-                {
-                    id: 2,
-                    name: "TEST 2",
-                    description: "Your local taco shop!",
-                    image: "http://tacoshop.biz/images/logo.png?crc=3828647610"
-                }
-            ],
+            restaurants: [],
             displayMenu: false,
             activeMenu: [],
-            menus: {
-                1: [
-                    {id: 1, name: "Burger", price: "4.00", image: "/"},
-                    {id: 2, name: "Fries", price: "2.00", image: "/"},
-                    {id: 3, name: "Cheeseburger", price: "4.50", image: "/"},
-                    {id: 4, name: "Chicken Nuggets", price: "3.50", image: "/"},
-                    {id: 5, name: "Baconburger", price: "6.00", image: "/"}
-                ],
-                2: [
-                    {id: 1, name: "Burrito", price: "5.00", image: "/"},
-                    {id: 2, name: "Taco", price: "1.50", image: "/"},
-                    {id: 3, name: "Enchilada", price: "6.50", image: "/"},
-                    {id: 4, name: "Carne Asada Fries", price: "8.00", image: "/"}
-                ]
-            }
+            menus: {}
         };
     }
 
     componentDidMount() {
-        fetch("/restaurants").then(restaurants => {
+        this.getRestaurants();
+        this.getMenus();
+    }
+
+    getRestaurants() {
+        fetch("https://cs441-server.herokuapp.com/restaurants").then(restaurants => {
             console.log("Fetched restaurants from API.");
+            this.setState({
+                restaurants: restaurants
+            });
         }).catch(err => {
             this.setState({
-                error: true
+                error: true,
+                errorDetails: err
+            });
+        });
+    }
+
+    getMenus() {
+        fetch("https://cs441-server.herokuapp.com/menus").then(menus => {
+            console.log("Fetched menus from API.");
+            this.setState({
+                menus: menus
+            });
+        }).catch(err => {
+            this.setState({
+                error: true,
+                errorDetails: err
             });
         });
     }

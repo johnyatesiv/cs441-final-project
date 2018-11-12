@@ -14,6 +14,13 @@ app.use(express.static('public'));
 /** Middleware for parsing JSON sent in req bodies **/
 app.use(bodyParser.json());
 
+/** Enable CORS **/
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 /** Landing page **/
 //app.get('/', (req, res) => {
 //    res.render("index.html");
@@ -84,4 +91,4 @@ __delete = (route, req, res) => {
 };
 
 /** Starts the app, listening on 3000 by default or on the configured environment port **/
-app.listen(process.env.PORT || 3000, () => console.log('FoodApp up and running!'));
+app.listen(process.env.PORT || 3001, () => console.log('FoodApp up and running!'));
