@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 
 app.get("/user", (req, res) => {
-   UsersController.find(req.query).then(users => {
+   UsersController.getUser(req.query.id).then(users => {
        res.json(users[0].dataValues);
    }).catch(err => {
         res.json({error: true, message: err});
@@ -29,7 +29,7 @@ app.get("/user", (req, res) => {
 });
 
 app.get("/restaurants", (req, res) => {
-    RestaurantsController.find(req.query).then(restaurants => {
+    RestaurantsController.getRestaurants(req.query).then(restaurants => {
         res.json(restaurants);
     }).catch(err => {
         res.json({error: true, message: err});
@@ -37,7 +37,7 @@ app.get("/restaurants", (req, res) => {
 });
 
 app.get("/menus", (req, res) => {
-    MenusController.find(req.query).then(menus => {
+    MenusController.getMenus(req.query).then(menus => {
         res.json(menus);
     }).catch(err => {
         res.json({error: true, message: err});
@@ -84,4 +84,4 @@ __delete = (route, req, res) => {
 };
 
 /** Starts the app, listening on 3000 by default or on the configured environment port **/
-app.listen(process.env.PORT || 3001, () => console.log('FoodApp up and running!'));
+app.listen(process.env.PORT || 3000, () => console.log('FoodApp up and running!'));

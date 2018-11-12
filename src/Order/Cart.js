@@ -42,13 +42,21 @@ class Cart extends React.Component {
                     <Close />
                 </IconButton>
                 <div className="CartContent">
-                    {
-                        this.props.items.map((item) => {
-                            return (<CartItem key={item.id} item={item}></CartItem>);
-                        })
-                    }
-                    <br />
-                    Total: ${this.calculateTotal()}
+                    <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                        spacing={16}
+                    >
+                        {
+                            this.props.items.map((item) => {
+                                return (<CartItem key={item.id} item={item}></CartItem>);
+                            })
+                        }
+                        <br />
+                        <b>Total:</b> ${this.calculateTotal()}
+                    </Grid>
                 </div>
             </Popover>
         );
