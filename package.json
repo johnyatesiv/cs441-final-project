@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/johnyatesiv/cs441_final_project/issues"
   },
-  "homepage": "https://github.com/johnyatesiv/cs441_final_project#readme",
+  "homepage": "",
   "dependencies": {
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
