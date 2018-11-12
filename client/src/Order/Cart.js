@@ -46,7 +46,7 @@ class Cart extends React.Component {
                         container
                         direction="column"
                         justify="center"
-                        alignItems="center"
+                        alignItems="left"
                         spacing={16}
                     >
                         {
