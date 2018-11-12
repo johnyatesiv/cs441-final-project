@@ -90,5 +90,6 @@ __delete = (route, req, res) => {
 
 };
 
+const port = process.env.PORT || 5000;
 /** Starts the app, listening on 3000 by default or on the configured environment port **/
-app.listen(process.env.PORT || 3001, () => console.log('FoodApp up and running!'));
+app.listen(port, () => console.log('FoodApp up and running!'));
