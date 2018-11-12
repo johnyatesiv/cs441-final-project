@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
-import UserView from "./User/UserView";
 import Grid from '@material-ui/core/Grid';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
-import { Fastfood, Restaurant, ExitToApp, MoreVert, Close } from '@material-ui/icons';
+import { Fastfood, Restaurant, ExitToApp, MoreVert, Close, ShoppingCart } from '@material-ui/icons';
 
-class App extends Component {
+/** Child Views **/
+import UserView from "./User/UserView";
+import Cart from "./Order/Cart";
+
+class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      menuOpen: false,
       restaurantViewOpen: false,
-      orderViewOpen: false
+      orderViewOpen: false,
+      cart: []
     };
   }
 
@@ -25,27 +28,20 @@ class App extends Component {
     this.setState(update);
   }
 
-  /**
-   *
-   */
-  openMenu() {
+  openCart() {
     this.setState({
-      menuOpen: true
-    });
-  }
+      cartOpen: true
+    })
+  };
 
-  /**
-   *
-   */
-  closeMenu() {
+  closeCart() {
     this.setState({
-      menuOpen: false
+      cartOpen: false
     })
   }
 
   openRestaurantView() {
     this.closeOrderView();
-    this.closeMenu();
 
     this.setState({
       restaurantViewOpen: true
@@ -60,7 +56,6 @@ class App extends Component {
 
   openOrderView() {
     this.closeRestaurantView();
-    this.closeMenu();
 
     this.setState({
       orderViewOpen: true
@@ -77,29 +72,34 @@ class App extends Component {
     return !this.state.restaurantViewOpen && !this.state.orderViewOpen;
   }
 
+  addItemToCart(item) {
+    if(this.state.cart[item.id]) {
+      this.state.cart[item.id].quantity++;
+    } else {
+      this.state.cart[item.id] = item;
+      this.state.cart[item.id].quantity = 1;
+    }
+  }
+
+  removeItemFromCart(index) {
+    delete this.state.cart[index];
+  }
+
   render() {
     return (
       <div className="App">
+          <MainMenu
+              openRestaurantView={this.openRestaurantView.bind(this)}
+              openOrderView={this.openOrderView.bind(this)}
+              openCart={this.openCart.bind(this)}
+          />
           <Grid container className="AppGrid">
-            <IconButton
-                onClick={this.openMenu.bind(this)}
-                styles={{marginBottom: "5%"}}
-            >
-              <MoreVert />
-            </IconButton>
-            <br />
-            <MainMenu
-                open={this.state.menuOpen}
-                close={this.closeMenu.bind(this)}
-                openRestaurantView={this.openRestaurantView.bind(this)}
-                openOrderView={this.openOrderView.bind(this)}
-            />
             <br />
             {
               this.noViewsOpen() ?
                 (
-                  <div style={{width: "100vw", height: "100vh"}}>
-                    <img style={{width: "75vw", height: "75vh", marginLeft: "10vw"}} src="/foodapp_logo.png" alt="Foodapp Logo" />
+                  <div style={{width: "100vw", height: "100vh", textAlign: "center"}}>
+                    <img style={{width: "50vw", height: "50vh", marginLeft: "10vw"}} src="/foodapp_logo.png" alt="Foodapp Logo" />
                   </div>
                 )
                 : ""
@@ -108,8 +108,16 @@ class App extends Component {
                 mutateParentState={this.mutateState.bind(this)}
                 restaurantViewOpen={this.state.restaurantViewOpen}
                 orderViewOpen={this.state.restaurantViewOpen}
+                addItemToCart={this.addItemToCart.bind(this)}
+                removeItemFromCart={this.removeItemFromCart.bind(this)}
             />
           </Grid>
+          <Cart
+              open={this.state.cartOpen}
+              close={this.closeCart.bind(this)}
+              items={this.state.cart}
+              removeItemFromCart={this.removeItemFromCart.bind(this)}
+          ></Cart>
       </div>
     );
   }
@@ -119,27 +127,28 @@ class MainMenu extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      open: props.open
-    };
+    this.state = {};
   }
 
   render() {
     return (
-        <Menu open={this.props.open}>
-          <MenuItem className="UserMenuItem" onClick={this.props.openRestaurantView}>
-            <Restaurant></Restaurant>
-          </MenuItem>
-          <MenuItem className="UserMenuItem" onClick={this.props.openOrderView}>
-            <Fastfood></Fastfood>
-          </MenuItem>
-          <MenuItem className="UserMenuItem" onClick={this.props.logout}>
-            <ExitToApp></ExitToApp>
-          </MenuItem>
-          <MenuItem className="UserMenuItem" onClick={this.props.close}>
-            <Close></Close>
-          </MenuItem>
-        </Menu>
+        <nav className="AppNav">
+          <IconButton
+              onClick={this.props.openRestaurantView.bind(this)}
+          >
+            <Restaurant />
+          </IconButton>
+          <IconButton
+              onClick={this.props.openOrderView.bind(this)}
+          >
+            <Fastfood />
+          </IconButton>
+          <IconButton
+              onClick={this.props.openCart.bind(this)}
+          >
+            <ShoppingCart />
+          </IconButton>
+        </nav>
     );
   }
 }

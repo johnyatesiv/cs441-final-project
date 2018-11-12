@@ -32,7 +32,6 @@ class Menu extends React.Component {
             >
                 <Close className="CloseButton" onClick={this.props.close}></Close>
                 <br />
-                <h1>Menu</h1>
                 <div className="ActiveMenu">
                     <Grid
                         container
@@ -41,6 +40,7 @@ class Menu extends React.Component {
                         alignItems="left"
                         spacing={16}
                     >
+                        <h1>Menu</h1><br />
                         {(this.props.menu.map((item) => {
                             return <MenuItem key={item.id} item={item}></MenuItem>
                         }))}
