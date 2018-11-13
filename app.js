@@ -22,12 +22,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-/** Landing page **/
-app.get('/', (req, res) => {
-    res.render("index.html");
-});
-
-
 app.get("/user", (req, res) => {
    UsersController.getUser(req.query.id).then(users => {
        res.json(users[0].dataValues);
