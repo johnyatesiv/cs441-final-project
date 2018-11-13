@@ -8,9 +8,10 @@ const OrdersController = require("./lib/controllers/OrdersController");
 
 /** Initialize App as Express obj **/
 const app = express();
+app.set('view engine', 'html');
 
 /** Serves views from /public directory **/
-app.use(express.static('public'));
+app.use(express.static("client/build"));
 /** Middleware for parsing JSON sent in req bodies **/
 app.use(bodyParser.json());
 
@@ -22,9 +23,9 @@ app.use(function(req, res, next) {
 });
 
 /** Landing page **/
-//app.get('/', (req, res) => {
-//    res.render("index.html");
-//});
+app.get('/', (req, res) => {
+    res.render("index.html");
+});
 
 
 app.get("/user", (req, res) => {
