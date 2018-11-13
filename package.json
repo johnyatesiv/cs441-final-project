@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "npm install; node app.js; react-scripts start;",
+    "start": "npm install; node app.js; cd client; react-scripts start;",
     "ui": "react-scripts start;",
     "build": "react-scripts build;",
     "test": "react-scripts test;",
