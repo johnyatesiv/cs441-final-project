@@ -4,7 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "npm install; node app.js;"
+    "start": "npm install; node app.js; react-scripts start;",
+    "ui": "react-scripts start;",
+    "build": "react-scripts build;",
+    "test": "react-scripts test;",
+    "eject": "react-scripts eject;"
   },
   "eslintConfig": {
     "extends": "react-app"
