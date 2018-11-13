@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "npm install; node app.js;"
+    "start": "npm install; node app.js;",
+    "build": "cd ./client; npm run-script build;"
   },
   "eslintConfig": {
     "extends": "react-app"
