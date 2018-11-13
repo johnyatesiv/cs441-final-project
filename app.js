@@ -22,6 +22,9 @@ app.use(function(req, res, next) {
     next();
 });
 
+/**
+ *
+ */
 app.get("/user", (req, res) => {
    UsersController.getUser(req.query.id).then(users => {
        res.json(users[0].dataValues);
@@ -30,6 +33,9 @@ app.get("/user", (req, res) => {
     })
 });
 
+/**
+ *
+ */
 app.get("/restaurants", (req, res) => {
     RestaurantsController.getRestaurants(req.query).then(restaurants => {
         res.json(restaurants);
@@ -38,9 +44,23 @@ app.get("/restaurants", (req, res) => {
     });
 });
 
+/**
+ *
+ */
 app.get("/menus", (req, res) => {
     MenusController.getMenus(req.query).then(menus => {
         res.json(menus);
+    }).catch(err => {
+        res.json({error: true, message: err});
+    });
+});
+
+/**
+ *
+ */
+app.get("/orders", (req, res) => {
+    OrdersController.getOrders(req.query).then(orders => {
+        res.json(orders);
     }).catch(err => {
         res.json({error: true, message: err});
     });

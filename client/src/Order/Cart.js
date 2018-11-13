@@ -43,16 +43,17 @@ class Cart extends React.Component {
                 </IconButton>
                 <div className="CartContent">
                     <Grid
+                        className="CartGrid"
                         container
                         direction="column"
-                        justify="center"
+                        justify="left"
                         alignItems="left"
                         spacing={16}
                     >
                         {
                             this.props.items.map((item) => {
                                 return (<CartItem key={item.id} item={item}></CartItem>);
-                            })
+                            });
                         }
                         <br />
                         <b>Total:</b> ${this.calculateTotal()}
