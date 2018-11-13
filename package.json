@@ -4,9 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "concurrently \"npm run-script server\" \"npm run-script client\"",
-    "server": "node app.js",
-    "client": "node start-client.js",
+    "start": "npm install; node app.js",
     "build": "cd ./client; npm install; npm run-script build;"
   },
   "eslintConfig": {
