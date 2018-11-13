@@ -11,7 +11,7 @@ const app = express();
 app.set('view engine', 'html');
 
 /** Serves views from /public directory **/
-app.use(express.static("client/build"));
+app.use(express.static(__dirname+"/client/build"));
 /** Middleware for parsing JSON sent in req bodies **/
 app.use(bodyParser.json());
 
