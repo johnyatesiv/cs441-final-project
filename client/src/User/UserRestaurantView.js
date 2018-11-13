@@ -12,55 +12,18 @@ import Menu from "../Menu/MenuView";
 /** Globals **/
 
 class UserRestaurantView extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            restaurants: [],
             displayMenu: false,
             activeMenu: [],
-            menus: {}
         };
     }
 
     componentDidMount() {
         this.getRestaurants();
         this.getMenus();
-    }
-
-    getRestaurants() {
-        fetch("https://cs441-api.herokuapp.com/restaurants").then(res => {
-            return res.json();
-        }).then(json => {
-            console.log("Fetched restaurants from API.");
-            this.setState({
-                restaurants: json
-            });
-
-            console.log("Got restaurants:");
-            console.log(this.state.restaurants);
-        }).catch(err => {
-            this.setState({
-                error: true,
-                errorDetails: err
-            });
-        });
-    }
-
-    getMenus() {
-        fetch("https://cs441-api.herokuapp.com/menus").then(res => {
-            return res.json();
-        }).then(json => {
-            console.log("Fetched menus from API.");
-            this.setState({
-                menus: json
-            });
-        }).catch(err => {
-            this.setState({
-                error: true,
-                errorDetails: err
-            });
-        });
     }
 
     openMenu() {
@@ -87,17 +50,15 @@ class UserRestaurantView extends React.Component {
                     spacing={40}
                 >
                     {
-                        this.state.restaurants.length ?
-                            this.state.restaurants.map(restaurant => {
-                                return (
+                        this.props.restaurants.map(restaurant => {
+                            return (
                                 <RestaurantSelection
-                                key={restaurant.id}
-                                restaurant={restaurant}
-                                openParentMenu={this.openMenu.bind(this, restaurant.id)}
+                                    key={restaurant.id}
+                                    restaurant={restaurant}
+                                    openParentMenu={this.openMenu.bind(this, restaurant.id)}
                                 ></RestaurantSelection>
-                                );
-                            })
-                        : ""
+                            );
+                        })
                     }
                     <Menu
                         open={this.state.displayMenu}

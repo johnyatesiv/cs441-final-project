@@ -53,7 +53,7 @@ class Cart extends React.Component {
                         {
                             this.props.items.map((item) => {
                                 return (<CartItem key={item.id} item={item}></CartItem>);
-                            });
+                            })
                         }
                         <br />
                         <b>Total:</b> ${this.calculateTotal()}

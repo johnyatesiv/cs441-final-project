@@ -12,13 +12,15 @@ import UserView from "./User/UserView";
 import Cart from "./Order/Cart";
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       restaurantViewOpen: false,
       orderViewOpen: false,
-      cart: []
+      cart: [],
+      restaurants: [],
+      menu: []
     };
   }
 
@@ -85,6 +87,41 @@ class App extends React.Component {
     delete this.state.cart[index];
   }
 
+  getRestaurants() {
+    fetch("https://cs441-api.herokuapp.com/restaurants").then(res => {
+      return res.json();
+    }).then(json => {
+      console.log("Fetched restaurants from API.");
+      this.setState({
+        restaurants: json
+      });
+
+      console.log("Got restaurants:");
+      console.log(this.state.restaurants);
+    }).catch(err => {
+      this.setState({
+        error: true,
+        errorDetails: err
+      });
+    });
+  }
+
+  getMenus() {
+    fetch("https://cs441-api.herokuapp.com/menus").then(res => {
+      return res.json();
+    }).then(json => {
+      console.log("Fetched menus from API.");
+      this.setState({
+        menus: json
+      });
+    }).catch(err => {
+      this.setState({
+        error: true,
+        errorDetails: err
+      });
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -105,6 +142,8 @@ class App extends React.Component {
                 : ""
             }
             <UserView
+                restaurants={this.state.restaurants}
+                menus={this.state.menus}
                 mutateParentState={this.mutateState.bind(this)}
                 restaurantViewOpen={this.state.restaurantViewOpen}
                 orderViewOpen={this.state.restaurantViewOpen}
