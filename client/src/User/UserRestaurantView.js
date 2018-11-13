@@ -29,11 +29,16 @@ class UserRestaurantView extends React.Component {
     }
 
     getRestaurants() {
-        fetch("/restaurants").then(restaurants => {
+        fetch("https://cs441-api.herokuapp.com/restaurants").then(res => {
+            return res.json();
+        }).then(json => {
             console.log("Fetched restaurants from API.");
             this.setState({
-                restaurants: restaurants
+                restaurants: json
             });
+
+            console.log("Got restaurants:");
+            console.log(this.state.restaurants);
         }).catch(err => {
             this.setState({
                 error: true,
@@ -43,10 +48,12 @@ class UserRestaurantView extends React.Component {
     }
 
     getMenus() {
-        fetch("/menus").then(menus => {
+        fetch("https://cs441-api.herokuapp.com/menus").then(res => {
+            return res.json();
+        }).then(json => {
             console.log("Fetched menus from API.");
             this.setState({
-                menus: menus
+                menus: json
             });
         }).catch(err => {
             this.setState({
@@ -80,15 +87,17 @@ class UserRestaurantView extends React.Component {
                     spacing={40}
                 >
                     {
-                        this.state.restaurants.map(restaurant => {
-                            return (
-                                    <RestaurantSelection
-                                        key={restaurant.id}
-                                        restaurant={restaurant}
-                                        openParentMenu={this.openMenu.bind(this, restaurant.id)}
-                                    ></RestaurantSelection>
-                                   );
-                        })
+                        this.state.restaurants.length ?
+                            this.state.restaurants.map(restaurant => {
+                                return (
+                                <RestaurantSelection
+                                key={restaurant.id}
+                                restaurant={restaurant}
+                                openParentMenu={this.openMenu.bind(this, restaurant.id)}
+                                ></RestaurantSelection>
+                                );
+                            })
+                        : ""
                     }
                     <Menu
                         open={this.state.displayMenu}
