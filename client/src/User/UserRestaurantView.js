@@ -22,8 +22,7 @@ class UserRestaurantView extends React.Component {
     }
 
     componentDidMount() {
-        this.getRestaurants();
-        this.getMenus();
+
     }
 
     openMenu() {
@@ -41,31 +40,36 @@ class UserRestaurantView extends React.Component {
 
     render() {
         return (
-                <Grid
-                    className="UserRestaurantViewGrid"
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                    spacing={40}
+                <div
+                    className="UserRestaurantViewContainer"
                 >
-                    {
-                        this.props.restaurants.map(restaurant => {
-                            return (
-                                <RestaurantSelection
-                                    key={restaurant.id}
-                                    restaurant={restaurant}
-                                    openParentMenu={this.openMenu.bind(this, restaurant.id)}
-                                ></RestaurantSelection>
-                            );
-                        })
-                    }
-                    <Menu
-                        open={this.state.displayMenu}
-                        menu={this.state.activeMenu}
-                        close={this.closeMenu.bind(this)}
-                    ></Menu>
-                </Grid>
+                    <h1>Restaurants near you</h1>
+                    <Grid
+                        className="UserRestaurantViewGrid"
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        spacing={40}
+                    >
+                        {
+                            this.props.restaurants.map(restaurant => {
+                                return (
+                                    <RestaurantSelection
+                                        key={restaurant.id}
+                                        restaurant={restaurant}
+                                        openParentMenu={this.openMenu.bind(this, restaurant.id)}
+                                    ></RestaurantSelection>
+                                );
+                            })
+                        }
+                        <Menu
+                            open={this.state.displayMenu}
+                            menu={this.state.activeMenu}
+                            close={this.closeMenu.bind(this)}
+                        ></Menu>
+                    </Grid>
+                </div>
         );
     }
 }

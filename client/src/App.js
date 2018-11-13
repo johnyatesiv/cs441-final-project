@@ -20,8 +20,15 @@ class App extends React.Component {
       orderViewOpen: false,
       cart: [],
       restaurants: [],
-      menu: []
+      menu: [],
+      orders: []
     };
+  }
+
+  componentWillMount() {
+    this.getRestaurants();
+    this.getMenus();
+    this.getOrders();
   }
 
   mutateState(key, value) {
@@ -122,6 +129,22 @@ class App extends React.Component {
     });
   }
 
+  getOrders() {
+    fetch("https://cs441-api.herokuapp.com/orders").then(res => {
+      return res.json();
+    }).then(json => {
+      console.log("Fetched orders from API.");
+      this.setState({
+        orders: json
+      });
+    }).catch(err => {
+      this.setState({
+        error: true,
+        errorDetails: err
+      });
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -144,6 +167,7 @@ class App extends React.Component {
             <UserView
                 restaurants={this.state.restaurants}
                 menus={this.state.menus}
+                orders={this.state.orders}
                 mutateParentState={this.mutateState.bind(this)}
                 restaurantViewOpen={this.state.restaurantViewOpen}
                 orderViewOpen={this.state.restaurantViewOpen}
