@@ -17,6 +17,7 @@ class App extends React.Component {
       orderViewOpen: false,
       cartItems: {},
       restaurants: {},
+      selectedRestaurant: false,
       menu: {},
       orders: {}
     };
@@ -79,7 +80,16 @@ class App extends React.Component {
   }
 
   addItemToCart(item) {
-    console.log(item);
+    if(!this.state.selectedRestaurant) {
+      this.setState({
+        selectedRestaurant: item.restaurantId
+      });
+    } else {
+      if(item.restaurantId !== this.state.selectedRestaurant) {
+        return false;
+      }
+    }
+
     let cart = this.state.cartItems;
 
     if(cart[item.id]) {
@@ -99,6 +109,12 @@ class App extends React.Component {
     delete cart[index];
     this.setState({
       cart: cart
+    });
+  }
+
+  clearCart() {
+    this.setState({
+      cartItems: {}
     });
   }
 
@@ -171,6 +187,10 @@ class App extends React.Component {
   }
 
   checkout() {
+    this.setState({
+      selectedRestaurant: false
+    });
+
     this.closeCart();
 
     fetch('https://cs441-api.herokuapp.com/orders', {
@@ -181,11 +201,11 @@ class App extends React.Component {
       },
       body: JSON.stringify(this.state.cartItems)
     }).then((res) => {
+      console.log(this.state.cartItems);
       this.getOrders();
       this.openOrderView();
+      this.clearCart();
     });
-
-    console.log(this.state.cartItems);
   }
 
   render() {
@@ -210,6 +230,7 @@ class App extends React.Component {
             }
             <UserView
                 restaurants={this.state.restaurants}
+                selectedRestaurant={this.state.selectedRestaurant}
                 menus={this.state.menus}
                 orders={this.state.orders}
                 cartItems={this.state.cartItems}
