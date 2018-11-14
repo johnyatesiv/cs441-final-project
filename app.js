@@ -66,6 +66,14 @@ app.get("/orders", (req, res) => {
     });
 });
 
+app.post("/orders", (req, res) => {
+    OrdersController.createOrder(req.body.items).then(result => {
+        res.json({error: false, message: result});
+    }).catch(err => {
+        res.json({error: true, message: err});
+    })
+})
+
 /** Generic REST wrappers **/
 /**
  * __get
