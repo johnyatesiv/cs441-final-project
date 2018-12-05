@@ -270,12 +270,15 @@ class App extends React.Component {
         'Content-Type': 'application/json'
       },
       body: this.createLoginPOSTBody()
-    }).then((res) => {
-      console.log(res);
-      if(res.error || !res.token) {
+    }).then(res => {
+        return res.json();
+    })
+    .then((json) => {
+      console.log(json);
+      if(json.error || !json.token) {
         alert("There was an error logging you in.");
       } else {
-        this.loadLoggedInUI(res.token);
+        this.loadLoggedInUI(json.token);
       }
     });
   }
@@ -289,6 +292,7 @@ class App extends React.Component {
 
   loadLoggedInUI(token) {
     this.setState({
+      isLoggedIn: true,
       token: token
     });
 
@@ -308,13 +312,18 @@ class App extends React.Component {
                 (
                   <div className="LogoContainer">
                     <img className="LandingLogo" src="/foodapp_logo_v3.png" alt="Foodapp Logo" />
-                    <form>
-                      <Input name="email" placeholder="Email" onChange={this.updateEmail.bind(this)}/>
-                      <br/>
-                      <Input name="password" placeholder="Password" type="password" onChange={this.updatePassword.bind(this)} />
-                      <br/>
-                      <Button onClick={this.login.bind(this)}>Login</Button>
-                    </form>
+                    {
+                      !this.state.isLoggedIn ?
+                          <form>
+                            <Input name="email" placeholder="Email" onChange={this.updateEmail.bind(this)}/>
+                            <br/>
+                            <Input name="password" placeholder="Password" type="password" onChange={this.updatePassword.bind(this)} />
+                            <br/>
+                            <Button onClick={this.login.bind(this)}>Login</Button>
+                          </form>
+                          :
+                          ""
+                    }
                     <h4>All images courtesy of Wikimedia</h4>
                   </div>
                 )
