@@ -3,6 +3,8 @@ import React from 'react';
 import './App.css';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 import { Fastfood, Restaurant, ShoppingCart } from '@material-ui/icons';
 
 /** Child Views **/
@@ -13,6 +15,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      isLoggedIn: false,
       restaurantViewOpen: false,
       orderViewOpen: false,
       cartItems: {},
@@ -24,9 +27,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.getRestaurants();
-    this.getMenus();
-    this.getOrders();
+    this.getGeolocation();
   }
 
   mutateState(key, value) {
@@ -118,6 +119,20 @@ class App extends React.Component {
     });
   }
 
+  renderMainMenu() {
+    if(this.state.isLoggedIn) {
+      return (
+          <MainMenu
+              openRestaurantView={this.openRestaurantView.bind(this)}
+              openOrderView={this.openOrderView.bind(this)}
+              openCart={this.openCart.bind(this)}
+          />
+      )
+    } else {
+      return "";
+    }
+  }
+
   getRestaurants() {
     fetch("https://cs441-api.herokuapp.com/restaurants").then(res => {
       return res.json();
@@ -186,6 +201,26 @@ class App extends React.Component {
     });
   }
 
+  getGeolocation() {
+    if(navigator.geolocation) {
+      try {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          console.log("got geolocation!");
+          console.log(position);
+          document.cookie = "lat="+position.coords.lat+";lng="+position.coords.lng;
+        }, function(error) {
+          console.log(error);
+        }, {
+          enableHighAccuracy: true
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    } else {
+      alert("Geolocation is not supported by this browser!")
+    }
+  }
+
   checkout() {
     this.setState({
       selectedRestaurant: false
@@ -215,14 +250,57 @@ class App extends React.Component {
     });
   }
 
+  updateEmail(e) {
+    this.setState({
+      email: e.target.value
+    });
+  }
+
+  updatePassword(e) {
+    this.setState({
+      password: e.target.value
+    });
+  }
+
+  login() {
+    fetch('https://cs441-api.herokuapp.com/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: this.createLoginPOSTBody()
+    }).then((res) => {
+      console.log(res);
+      if(res.error || !res.token) {
+        alert("There was an error logging you in.");
+      } else {
+        this.loadLoggedInUI(res.token);
+      }
+    });
+  }
+
+  createLoginPOSTBody() {
+    return JSON.stringify({
+      email: this.state.email,
+      password: this.state.password
+    })
+  }
+
+  loadLoggedInUI(token) {
+    this.setState({
+      token: token
+    });
+
+    this.getRestaurants();
+    this.getMenus();
+    this.getOrders();
+  }
+
   render() {
     return (
       <div className="App">
-          <MainMenu
-              openRestaurantView={this.openRestaurantView.bind(this)}
-              openOrderView={this.openOrderView.bind(this)}
-              openCart={this.openCart.bind(this)}
-          />
+          {this.renderMainMenu()}
           <Grid container className="AppGrid">
             <br />
             {
@@ -230,6 +308,13 @@ class App extends React.Component {
                 (
                   <div className="LogoContainer">
                     <img className="LandingLogo" src="/foodapp_logo_v3.png" alt="Foodapp Logo" />
+                    <form>
+                      <Input name="email" placeholder="Email" onChange={this.updateEmail}/>
+                      <br/>
+                      <Input name="password" placeholder="Password" type="password" onChange={this.updatePassword} />
+                      <br/>
+                      <Button onClick={this.login}>Login</Button>
+                    </form>
                     <h4>All images courtesy of Wikimedia</h4>
                   </div>
                 )
