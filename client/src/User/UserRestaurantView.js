@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
 /** Other Views **/
@@ -33,7 +32,6 @@ class UserRestaurantView extends React.Component {
                     userLng: position.coords.longitude
                 });
             });
-            alert("got geolocation: "+this.state.userLat+" / "+this.state.userLng);
         } else {
             /* geolocation IS NOT available */
         }
@@ -114,10 +112,6 @@ class UserRestaurantView extends React.Component {
 }
 
 class RestaurantMap extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     createMarker(restaurant) {
         return (
             <Marker
