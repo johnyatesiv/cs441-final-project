@@ -33,6 +33,9 @@ app.get("/user", (req, res) => {
     })
 });
 
+/**
+ * login
+ */
 app.post("/login", (req, res) => {
     UsersController.login(req.body).then(token => {
         res.json({error: false, token: token, message: "Logged in."});
