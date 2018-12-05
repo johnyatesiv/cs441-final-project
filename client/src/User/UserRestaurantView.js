@@ -48,6 +48,13 @@ class UserRestaurantView extends React.Component {
         });
     }
 
+    openMenuExplicit(id) {
+        this.setState({
+            displayMenu: true,
+            activeMenu: this.props.restaurants[id].items
+        });
+    }
+
     closeMenu() {
         this.setState({
             displayMenu: false
@@ -64,6 +71,10 @@ class UserRestaurantView extends React.Component {
         return restaurants;
     }
 
+    selectRestaurant() {
+        this.openMenuExplicit(arguments[0] - 1);
+    }
+
     render() {
         return (
                 <div
@@ -75,6 +86,7 @@ class UserRestaurantView extends React.Component {
                         openParentMenu={this.openMenu}
                         userLat={this.state.userLat}
                         userLng={this.state.userLng}
+                        selectRestaurant={this.selectRestaurant}
                     />
                     <Grid
                         className="UserRestaurantViewGrid"
@@ -117,7 +129,7 @@ class RestaurantMap extends React.Component {
             <Marker
                 key={restaurant.id}
                 position={{ lat: restaurant.lat, lng: restaurant.lng }}
-                onClick={this.props.openParentMenu.bind(this, restaurant.id)}
+                onClick={this.props.selectRestaurant.bind(this, restaurant.id)}
             />
         );
     }
