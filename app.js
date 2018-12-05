@@ -71,7 +71,8 @@ app.post("/orders", (req, res) => {
     OrdersController.createOrder(req.body).then(result => {
         res.json({error: false, message: result});
     }).catch(err => {
-        res.json({error: true, message: err});
+        console.dir(err);
+        res.json({error: true, message: err.message});
     })
 });
 
