@@ -309,11 +309,11 @@ class App extends React.Component {
                   <div className="LogoContainer">
                     <img className="LandingLogo" src="/foodapp_logo_v3.png" alt="Foodapp Logo" />
                     <form>
-                      <Input name="email" placeholder="Email" onChange={this.updateEmail}/>
+                      <Input name="email" placeholder="Email" onChange={this.updateEmail.bind(this)}/>
                       <br/>
-                      <Input name="password" placeholder="Password" type="password" onChange={this.updatePassword} />
+                      <Input name="password" placeholder="Password" type="password" onChange={this.updatePassword.bind(this)} />
                       <br/>
-                      <Button onClick={this.login}>Login</Button>
+                      <Button onClick={this.login.bind(this)}>Login</Button>
                     </form>
                     <h4>All images courtesy of Wikimedia</h4>
                   </div>
